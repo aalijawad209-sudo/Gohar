@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="gohar-api-url" content="">
+  <meta name="theme-color" content="#174c35"><title>Gohar — AI Kheti Salahkar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-icon">🌾</div><div><strong>गोहर <span>GOHAR</span></strong><small>AI Kheti Salahkar</small></div></div>
+    <nav class="primary-nav" aria-label="Main navigation"><button id="showChatPage" class="primary-nav-button active" type="button">💬 <span>Ask Gohar</span></button><button id="showGuidePage" class="primary-nav-button" type="button">🌱 <span>Season &amp; fertilizer guide</span></button></nav>
+    <p class="label">YOUR FARMING ASSISTANT</p>
+    <button id="newChat" class="new-chat">＋ &nbsp; New conversation</button>
+    <nav id="historyPanel" class="history-nav" aria-label="Chat history"><p id="historyHeading" class="label">RECENT CHATS</p><div id="chatHistory" class="chat-history"></div><p id="emptyHistory" class="empty-history">Your conversations will appear here.</p></nav>
+    <div class="side-note"><div>🌱</div><b>20 Indian languages</b><p>Ask farming questions by text or voice in your language.</p></div>
+    
+  </aside>
+  <button id="navOverlay" class="nav-overlay" type="button" aria-label="Close chat history"></button>
+  <main>
+    <header class="topbar"><div class="mobile-brand"><button id="historyToggle" type="button" aria-label="Open chat history" aria-controls="historyPanel" aria-expanded="false">☰</button><span>🌾 <b>गोहर GOHAR</b></span></div><div class="topbar-actions"><label class="language-picker-label" for="languageSelect">🌐</label><select id="languageSelect" class="language-select" aria-label="Choose language">
+      <option value="hi">हिंदी</option><option value="en">English</option><option value="bn">বাংলা</option><option value="te">తెలుగు</option><option value="mr">मराठी</option><option value="ta">தமிழ்</option><option value="ur">اردو</option><option value="gu">ગુજરાતી</option><option value="kn">ಕನ್ನಡ</option><option value="or">ଓଡ଼ିଆ</option><option value="ml">മലയാളം</option><option value="pa">ਪੰਜਾਬੀ</option><option value="as">অসমীয়া</option><option value="mai">मैथिली</option><option value="bho">भोजपुरी</option><option value="ks">कॉशुर</option><option value="ne">नेपाली</option><option value="sat">ᱥᱟᱱᱛᱟᱲᱤ</option><option value="sd">سنڌي</option><option value="mni">মেইতেইলোন্</option>
+    </select><span class="status"><i class="dot"></i><span id="serviceStatus">AI salahkar</span></span></div></header>
+    <section id="guidePage" class="guide-page hidden" aria-labelledby="guideTitle">
+      <div class="guide-heading"><span class="eyebrow">🌿 FIELD GUIDE</span><h1 id="guideTitle">Season alerts &amp; fertilizer guide</h1><p>Choose a season and crop to see practical checks, nutrient roles and trusted references.</p></div>
+      <section class="season-card" aria-labelledby="seasonTitle">
+        <div class="guide-card-heading"><div><span class="guide-kicker">SEASON WATCH</span><h2 id="seasonTitle">Seasonal field checklist</h2></div><label class="guide-select-label">Growing season<select id="guideSeason"><option value="kharif">Kharif · Monsoon</option><option value="rabi">Rabi · Winter</option><option value="zaid">Zaid · Summer</option></select></label></div>
+        <p id="seasonSummary" class="season-summary"></p><ul id="seasonChecklist" class="season-checklist"></ul><p class="guide-note">These are seasonal reminders, not live weather or pest alerts. Check the local KVK/IMD advisory before acting.</p>
+      </section>
+      <section class="fertilizer-guide" aria-labelledby="fertilizerTitle">
+        <div class="guide-card-heading"><div><span class="guide-kicker">CROP NUTRITION</span><h2 id="fertilizerTitle">Best fertilizer sources, by crop</h2></div><label class="guide-select-label">Choose crop<select id="guideCrop"><option value="wheat">Wheat · गेहूँ</option><option value="rice">Rice · धान</option><option value="maize">Maize · मक्का</option><option value="mustard">Mustard · सरसों</option><option value="pulses">Pulses · दलहन</option></select></label></div>
+        <article id="cropGuideCard" class="crop-guide-card" aria-live="polite"></article>
+        <div class="resource-links"><a href="https://soilhealth.dac.gov.in/" target="_blank" rel="noopener noreferrer">🧪 Soil Health Card</a><a href="https://icar.gov.in/" target="_blank" rel="noopener noreferrer">📚 ICAR crop advisories</a><a href="https://mausam.imd.gov.in/" target="_blank" rel="noopener noreferrer">🌦 IMD weather advisories</a></div>
+        <p class="guide-note">There is no single “best fertilizer” for every field. Use your Soil Health Card and crop/region package for rates; confirm unfamiliar products with a KVK or agriculture officer.</p>
+      </section>
+    </section>
+    <section id="welcome" class="welcome">
+      <div class="farm-scene" aria-hidden="true">
+        <svg viewBox="0 0 740 132" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="morningSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ccefdc"/><stop offset="1" stop-color="#fff0c3"/></linearGradient>
+            <linearGradient id="fieldFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ccf64"/><stop offset="1" stop-color="#27854d"/></linearGradient>
+            <radialGradient id="sunHalo"><stop offset="0" stop-color="#ffc94f" stop-opacity=".9"/><stop offset="1" stop-color="#ffc94f" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="740" height="132" rx="18" fill="url(#morningSky)"/>
+          <circle class="sun-halo" cx="574" cy="55" r="46" fill="url(#sunHalo)"/>
+          <g class="sun-rays" transform-origin="574px 55px" stroke="#f2a93b" stroke-width="2" stroke-linecap="round" opacity=".75"><path d="M574 18v-7M574 99v-7M537 55h-7M618 55h-7M548 29l-5-5M605 86l-5-5M600 29l5-5M543 86l5-5"/></g>
+          <circle class="sun" cx="574" cy="55" r="21" fill="#ffb52e"/>
+          <g class="cloud cloud-one" fill="#fff" opacity=".82"><ellipse cx="157" cy="38" rx="26" ry="8"/><circle cx="146" cy="34" r="8"/><circle cx="160" cy="31" r="11"/><circle cx="173" cy="35" r="7"/></g>
+          <g class="cloud cloud-two" fill="#fff" opacity=".65"><ellipse cx="383" cy="27" rx="20" ry="6"/><circle cx="375" cy="24" r="6"/><circle cx="386" cy="22" r="8"/><circle cx="397" cy="26" r="5"/></g>
+          <path d="M0 102Q134 67 264 98T519 93T740 84V132H0Z" fill="#a8cf72"/>
+          <path d="M0 111Q131 80 276 108T523 102T740 96V132H0Z" fill="#65b964"/>
+          <path d="M0 119Q173 98 321 119T573 112T740 105V132H0Z" fill="url(#fieldFront)"/>
+          <g class="crop-row" fill="none" stroke="#edf0bd" stroke-width="1.5" opacity=".86"><path d="M25 132Q170 109 319 132M91 132Q229 108 383 132M172 132Q312 108 461 132M270 132Q405 107 548 132M385 132Q507 105 640 132M506 132Q615 108 728 132"/></g>
+          <g class="crop-sway" fill="none" stroke="#347344" stroke-linecap="round" stroke-width="2"><path d="M78 111v-24m0 14-8-7m8 3 8-8M663 108V82m0 15-8-7m8 4 8-9M703 107V89m0 10-7-7m7 3 7-8"/></g>
+          <g fill="#fff1b5" opacity=".8"><circle class="sparkle sparkle-one" cx="218" cy="66" r="2"/><circle class="sparkle sparkle-two" cx="463" cy="54" r="1.6"/><circle class="sparkle sparkle-three" cx="333" cy="83" r="1.8"/></g>
+        </svg>
+      </div>
+      <div id="eyebrow" class="eyebrow">✦ &nbsp; किसानो के लिए, किसानो की भाषा में</div>
+      <h1 id="welcomeTitle">नमस्ते, <em>किसान भाई!</em></h1>
+      <p id="welcomeIntro" class="intro">आज खेत में क्या दिक्कत है? अपना सवाल पूछिए।<br>गोहर खेती की जानकारी समझने में आपकी मदद करेगा।</p>
+      <div class="cards">
+        <button class="topic" data-prompt="Gehu ke patte peele pad rahe hain, kya karun?"><span class="emoji wheat">🌾</span><span><b>Fasal ki dikkat</b><small>Patte peele ya growth kam</small></span><span class="arrow">↗</span></button>
+        <button class="topic" data-prompt="Gehu mein khaad kab aur kaise deni chahiye?"><span class="emoji green">🌱</span><span><b>Khaad ki salah</b><small>Timing aur crop stage</small></span><span class="arrow">↗</span></button>
+        <button class="topic" data-prompt="Mere khet ke liye mausam ki jaankari kaise check karun?"><span class="emoji blue">☁️</span><span><b>Mausam ki jaankari</b><small>Baarish aur savdhani</small></span><span class="arrow">↗</span></button>
+        <button class="topic" data-prompt="Sarson ki fasal mein keede dikh rahe hain, kya check karun?"><span class="emoji orange">🐛</span><span><b>Keede aur rog</b><small>Possible cause aur next steps</small></span><span class="arrow">↗</span></button>
+      </div>
+    </section>
+    <section id="conversation" class="conversation hidden" aria-live="polite"></section>
+    <section class="composer-wrap">
+      <form id="chatForm" class="composer">
+        <details class="farmer-details">
+          <summary><span>🌿</span><span id="farmerDetailsLabel">खेत की जानकारी</span><small id="optionalLabel">(वैकल्पिक)</small></summary>
+          <div class="farmer-grid">
+            <label><span id="cropLabel">फसल</span><div class="field-control"><input id="farmCrop" maxlength="80" autocomplete="off" placeholder="जैसे गेहूँ"><button class="field-voice" type="button" data-field="farmCrop" aria-label="फसल बोलें">🎙</button></div></label>
+            <label><span id="seasonLabel">मौसम / सीज़न</span><div class="field-control"><select id="farmSeason"><option value="">Choose season (optional)</option><option value="kharif">Kharif / Monsoon</option><option value="rabi">Rabi / Winter</option><option value="zaid">Zaid / Summer</option></select></div></label>
+            <label><span id="locationLabel">गाँव / ज़िला</span><div class="field-control"><input id="farmLocation" maxlength="100" autocomplete="off" placeholder="गाँव या ज़िला"><button class="field-voice" type="button" data-field="farmLocation" aria-label="जगह बोलें">🎙</button></div></label>
+            <label><span id="stageLabel">फसल की उम्र / अवस्था</span><div class="field-control"><input id="farmStage" maxlength="100" autocomplete="off" placeholder="जैसे 30 दिन, फूल आना"><button class="field-voice" type="button" data-field="farmStage" aria-label="फसल की अवस्था बोलें">🎙</button></div></label>
+            <label><span id="symptomsLabel">दिक्कत / लक्षण</span><div class="field-control"><input id="farmSymptoms" maxlength="180" autocomplete="off" placeholder="क्या बदलाव दिख रहा है?"><button class="field-voice" type="button" data-field="farmSymptoms" aria-label="लक्षण बोलें">🎙</button></div></label>
+          </div>
+        </details>
+        <textarea id="question" rows="1" maxlength="1500" placeholder="अपना सवाल यहाँ लिखें…" aria-label="खेती से जुड़ा सवाल"></textarea>
+        <div class="composer-foot"><span id="inputHint">✦ हिंदी या अवधी में पूछें</span><div class="composer-actions"><button id="voiceButton" class="voice-button" type="button" aria-label="बोलकर सवाल पूछें" title="बोलकर सवाल पूछें">🎙</button><button id="sendButton" type="submit" aria-label="Send question">↑</button></div></div>
+      </form>
+      <p class="site-credit">© 2026 FourBitDevelopers</p>
+    </section>
+  </main>
+</div>
+<script src="script.js"></script>
+</body></html>
