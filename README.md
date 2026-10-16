@@ -1,4 +1,4 @@
-# Gohar — AI Kheti Salahkar 🌾
+# Gohar
 
 Open-source prototype for local-language farming guidance for smallholder farmers near Lucknow.
 
