@@ -13,6 +13,7 @@ KNOWLEDGE_DIR = ROOT
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/generate")
 OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 MODEL_NAME = os.getenv("GOHAR_MODEL", "gemma4:e2b")
+OLLAMA_TIMEOUT = float(os.getenv("GOHAR_OLLAMA_TIMEOUT", "300"))
 RUNNING_ON_RENDER = os.getenv("RENDER", "").lower() == "true"
 LANGUAGE_NAMES = {
     "hi": "Hindi", "en": "English", "bn": "Bengali", "te": "Telugu", "mr": "Marathi",
@@ -90,7 +91,7 @@ Helpful answer:"""
         OLLAMA_URL,
         headers={"Authorization": f"Bearer {OLLAMA_API_KEY}"} if OLLAMA_API_KEY else {},
         json={"model": MODEL_NAME, "prompt": prompt, "stream": False},
-        timeout=120,
+        timeout=OLLAMA_TIMEOUT,
     )
     response.raise_for_status()
     answer = response.json().get("response", "").strip()
@@ -115,7 +116,7 @@ Items:
         OLLAMA_URL,
         headers={"Authorization": f"Bearer {OLLAMA_API_KEY}"} if OLLAMA_API_KEY else {},
         json={"model": MODEL_NAME, "prompt": prompt, "stream": False, "format": "json", "options": {"temperature": 0}},
-        timeout=120,
+        timeout=OLLAMA_TIMEOUT,
     )
     response.raise_for_status()
     result = response.json().get("response", "").strip()

@@ -241,7 +241,8 @@ function showLanguageNotice(message, duration = 6500) {
 async function localizeInterface() {
   const target = language;
   const revision = ++localizationRevision;
-  if (target === "en") {
+  if (target === "en" || target === "hi") {
+    // English and Hindi are bundled with the page; do not call Ollama on startup.
     applyLanguage();
     renderHistory();
     document.querySelector("#languageNotice")?.classList.remove("visible");
