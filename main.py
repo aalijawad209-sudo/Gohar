@@ -10,9 +10,10 @@ from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parent
 KNOWLEDGE_DIR = ROOT
-OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
+OLLAMA_URL = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/generate")
 OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 MODEL_NAME = os.getenv("GOHAR_MODEL", "gemma4:e2b")
+RUNNING_ON_RENDER = os.getenv("RENDER", "").lower() == "true"
 LANGUAGE_NAMES = {
     "hi": "Hindi", "en": "English", "bn": "Bengali", "te": "Telugu", "mr": "Marathi",
     "ta": "Tamil", "ur": "Urdu", "gu": "Gujarati", "kn": "Kannada", "or": "Odia",
@@ -156,10 +157,17 @@ def chat(body: ChatRequest):
         answer = ask_gemma(body.question, context, body.language)
         return ChatResponse(answer=answer, source=source, mode="gemma")
     except requests.ConnectionError:
-        fallback = (
-            "Ollama se connection nahi ho pa raha. Ollama app chalu karke dobara koshish karein. "
-            "Agar Ollama installed nahi hai, use install karke Gemma model download karein."
-        )
+        if RUNNING_ON_RENDER:
+            fallback = (
+                "AI service tak connection nahi ho pa raha. Render ke Environment settings mein "
+                "OLLAMA_URL ko reachable Ollama-compatible /api/generate endpoint par set karein. "
+                "localhost ya 127.0.0.1 Render container ko refer karte hain, aapke PC ko nahi."
+            )
+        else:
+            fallback = (
+                "Ollama se connection nahi ho pa raha. Ollama app chalu karke dobara koshish karein. "
+                "Agar Ollama installed nahi hai, use install karke Gemma model download karein."
+            )
         return ChatResponse(answer=fallback, source=source, mode="fallback")
     except requests.Timeout:
         fallback = "Gemma ko jawab dene mein zyada samay lag raha hai. Thodi der baad dobara koshish karein."
@@ -192,7 +200,13 @@ def translate_interface(body: TranslateUIRequest):
     try:
         return TranslateUIResponse(translations=translate_ui(body.texts, body.language))
     except requests.ConnectionError as error:
-        raise HTTPException(status_code=503, detail="Ollama is unavailable. Start Ollama and try the language switch again.") from error
+        detail = (
+            "The configured AI service is unreachable. Set OLLAMA_URL in Render to a reachable "
+            "Ollama-compatible /api/generate endpoint; localhost refers to the Render container."
+            if RUNNING_ON_RENDER
+            else "Ollama is unavailable. Start Ollama and try the language switch again."
+        )
+        raise HTTPException(status_code=503, detail=detail) from error
     except requests.Timeout as error:
         raise HTTPException(status_code=504, detail="The local model took too long to translate the interface.") from error
     except requests.RequestException as error:

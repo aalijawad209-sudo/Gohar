@@ -29,9 +29,9 @@ If dependencies are not installed in the virtual environment, run `.venv\Scripts
 
 ## Connect Gemma through Ollama
 
-Gohar uses Ollama's local API at `http://localhost:11434/api/generate` and defaults to `gemma4:e2b` (`GOHAR_MODEL` can override the tag).
+Gohar uses Ollama's local API at `http://127.0.0.1:11434/api/generate` and defaults to `gemma4:e2b` (`GOHAR_MODEL` can override the tag).
 
-1. Install [Ollama for Windows](https://ollama.com/download/windows) and open the Ollama app. Ollama serves its local API at `http://localhost:11434`.
+1. Install [Ollama for Windows](https://ollama.com/download/windows) and open the Ollama app. Ollama serves its local API at `http://127.0.0.1:11434`.
 2. In a new Command Prompt, download and start Gemma once:
 
    ```cmd
@@ -45,6 +45,14 @@ Gohar uses Ollama's local API at `http://localhost:11434/api/generate` and defau
 Ollama's generate endpoint accepts a model name and prompt and returns a non-streaming response when `stream` is false, which is how this backend calls it. See the [Ollama Gemma 4 tags](https://ollama.com/library/gemma4/tags), [Windows setup](https://docs.ollama.com/windows), and [generate API](https://docs.ollama.com/api/generate).
 
 ## Deployment notes
+
+The public frontend currently points to `https://gohar.onrender.com`, so chat requests run on Render. In the Render Dashboard, open the `gohar` web service, choose **Environment**, and set:
+
+- `OLLAMA_URL` to the full, reachable generation endpoint, including `/api/generate` (for example, `https://your-inference-host.example/api/generate`). Do not set it to `localhost` or `127.0.0.1`: those addresses refer to the Render container, not your Windows PC.
+- `GOHAR_MODEL` to a model tag available on that inference service (for example, `gemma4:e2b`).
+- `OLLAMA_API_KEY` only if the inference service requires a Bearer token; keep it in Render's environment settings, not in source files.
+
+Save the settings and let Render deploy the updated environment. The inference endpoint must be reachable from Render and support Ollama's `/api/generate` request and response format. The local Ollama service at `http://127.0.0.1:11434` is suitable for local development only; it does not become reachable from Render automatically. For Render environment-variable steps, see [Render's environment variable documentation](https://render.com/docs/configure-environment-variables).
 
 The FastAPI app serves the frontend and API from one origin. A hosted app cannot reach Ollama running on your personal computer; configure `OLLAMA_URL` to point to an inference service reachable by the host. The backend accepts an optional `OLLAMA_API_KEY` environment variable and sends it as a Bearer token. Store that key in the hosting provider's secret settings, never in frontend files or source control. Set `GOHAR_MODEL` to the model tag accepted by that inference service. Prompts will be sent to the configured inference provider.
 

@@ -205,7 +205,7 @@ function saveTranslationCache() {
 async function translateMissingStrings(target, strings, revision) {
   if (!uiTranslations[target]) uiTranslations[target] = {};
   const unique = [...new Set(strings)].filter((source) => source && !uiTranslations[target][source]);
-  const batchSize = 48;
+  const batchSize = 8;
   for (let start = 0; start < unique.length; start += batchSize) {
     if (revision !== localizationRevision) return false;
     const batch = unique.slice(start, start + batchSize);
