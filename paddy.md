@@ -1,102 +1,65 @@
-const API_URL = "http://127.0.0.1:8000/chat";
-const welcome = document.getElementById("welcome");
-const conversation = document.getElementById("conversation");
-const form = document.getElementById("chatForm");
-const input = document.getElementById("question");
-const newChat = document.getElementById("newChat");
+# धान की खेती (Paddy / Rice Cultivation Guide) — उत्तर प्रदेश एवं उत्तर भारत
 
-function addMessage(role, content, source = "") {
-  const row = document.createElement("div");
-  row.className = `message ${role}`;
-  if (role === "assistant") {
-    const avatar = document.createElement("div");
-    avatar.className = "avatar";
-    avatar.textContent = "🌾";
-    row.appendChild(avatar);
-  }
-  const bubble = document.createElement("div");
-  bubble.className = "bubble";
-  if (role === "assistant") {
-    const title = document.createElement("div");
-    title.className = "answer-title";
-    title.textContent = "Gohar ki salah";
-    bubble.appendChild(title);
-  }
-  const body = document.createElement("div");
-  body.textContent = content;
-  bubble.appendChild(body);
-  if (source) {
-    const note = document.createElement("div");
-    note.className = "source-note";
-    note.textContent = source;
-    bubble.appendChild(note);
-  }
-  row.appendChild(bubble);
-  conversation.appendChild(row);
-  conversation.scrollTop = conversation.scrollHeight;
-  return row;
-}
+## 1. सामान्य परिचय (Overview)
+- **फसल**: धान / चावल (Oryza sativa) — खरीफ सीज़न (Kharif Crop)
+- **उपयुक्त मिट्टी**: मटियार दोमट (Clay Loam) जिसमें जलधारण क्षमता अधिक हो (pH 5.5–7.5)।
+- **नर्सरी का समय**: 20 मई से 20 जून (किस्म के अनुसार)।
+- **रोपाई का समय**: 20 जून से 15 जुलाई (पौध 21-25 दिन की होने पर)।
 
-function showConversation() {
-  welcome.classList.add("hidden");
-  conversation.classList.remove("hidden");
-}
-function resetChat() {
-  conversation.replaceChildren();
-  conversation.classList.add("hidden");
-  welcome.classList.remove("hidden");
-  input.value = "";
-  input.focus();
-}
-newChat.addEventListener("click", resetChat);
+## 2. प्रमुख उन्नत किस्में (Improved Varieties)
+- **बासमती किस्में**: पूसा बासमती 1121, पूसा बासमती 1509, पूसा बासमती 1718, PB-1401, तरावड़ी बासमती।
+- **गैर-बासमती (मध्यम से देर अवधि)**: सरजू 52, पंत धान 4, संबा महसूरी (BPT-5204), सांभा सब-1, स्वर्णा सब-1 (बाढ़ सहिष्णु)।
+- **जल्दी पकने वाली किस्में**: गोविंद, नरेंद्र धान 97, पूसा सुगंध 5, DRR 42, IR-64।
 
-document.querySelectorAll("[data-prompt]").forEach(button => {
-  button.addEventListener("click", () => {
-    input.value = button.dataset.prompt;
-    form.requestSubmit();
-  });
-});
+## 3. पौधशाला प्रबंधन एवं बीज दर (Nursery & Seed Rate)
+- **बीज दर**:
+  - गैर-बासमती (मोटे/मध्यम दाने): 35-40 किग्रा प्रति हेक्टेयर (15-16 किग्रा/एकड़)।
+  - बासमती एवं बारीक दाने: 20-25 किग्रा प्रति हेक्टेयर (8-10 किग्रा/एकड़)।
+  - संकर (हाइब्रिड धान): 12-15 किग्रा प्रति हेक्टेयर (5-6 किग्रा/एकड़)।
+- **बीजोपचार (Seed Treatment)**:
+  - 10 लीटर पानी में 1.5 किग्रा नमक का घोल बनाएं, अच्छे भारी बीज नीचे बैठ जाएंगे, हल्के तैरते बीज निकाल दें। फिर साफ पानी से धोएं।
+  - फफूँदनाशक: कार्बेन्डाजिम 50% WP @ 2 ग्राम प्रति किग्रा बीज या ट्राइकोडर्मा हरजिएनम @ 5 ग्राम/किग्रा।
+  - जीवाणु झुलसा रोकथाम: स्ट्रेप्टोसाइक्लिन (Streptocycline) 1 ग्राम + कॉपर ऑक्सीक्लोराइड 20 ग्राम 10 लीटर पानी में घोलकर बीज 10-12 घंटे भिगोएं।
 
-input.addEventListener("input", () => {
-  input.style.height = "auto";
-  input.style.height = Math.min(input.scrollHeight, 120) + "px";
-});
+## 4. रोपाई एवं खाद प्रबंधन (Transplanting & Nutrition)
+- **रोपाई**: कतार से कतार की दूरी 20 सेमी तथा पौधे से पौधे की दूरी 15 सेमी रखें। एक स्थान पर 2-3 स्वस्थ पौधे लगाएं।
+- **संतुलित उर्वरक (अनुशंसित N:P:K: 120:60:40 किग्रा/हेक्टेयर)**:
+  - **बेसल खुराक (रोपाई के समय)**:
+    - पूरी फॉस्फोरस (P) एवं पोटाश (K) तथा नाइट्रोजन (N) की 1/3 मात्रा।
+    - प्रति एकड़: 1 बोरी डीएपी (50 किग्रा) + 25-30 किग्रा एमओपी + 25 किग्रा यूरिया, अथवा 3 बोरी एसएसपी + 1 बोरी यूरिया + पोटाश।
+    - **जिंक सल्फेट**: 10 किग्रा जिंक सल्फेट (21%) या 5 किग्रा जिंक चिलेटेड प्रति एकड़ अवश्य डालें (जिंक की कमी से खैरा रोग होता है)। डीएपी और जिंक को कभी मिलाकर न डालें।
+  - **प्रथम टॉप ड्रेसिंग (रोपाई के 20-25 दिन बाद / कल्ले निकलते समय)**:
+    - 30-35 किग्रा यूरिया प्रति एकड़।
+  - **द्वितीय टॉप ड्रेसिंग (रोपाई के 40-45 दिन बाद / गभोट अवस्था)**:
+    - 30-35 किग्रा यूरिया प्रति एकड़।
 
-function demoAnswer(question) {
-  const q = question.toLowerCase();
-  if (q.includes("mausam") || q.includes("baarish") || q.includes("weather")) {
-    return "Mausam ki live jaankari is demo mein connected nahi hai. Apne district ka latest forecast IMD ya kisi trusted weather service se check karein. Baarish ki sambhavna ho toh pesticide/fertiliser apply karne se pehle local advisory aur product label dekhein.";
-  }
-  if (q.includes("khaad") || q.includes("fertili") || q.includes("nitrogen") || q.includes("urea")) {
-    return "Sahi khaad aur quantity crop, crop age, soil test aur pehle di gayi khaad par depend karti hai. Pehle crop ka naam, kitne din ki fasal hai aur soil-test details batayein. Bina in details ke exact dose suggest karna safe nahi hoga.";
-  }
-  if (q.includes("keede") || q.includes("pest") || q.includes("rog") || q.includes("disease")) {
-    return "Keede ya rog ki sahi pehchaan ke liye crop ka naam, fasal ki age, affected hissa aur symptoms jaan-na zaroori hai. Agar possible ho toh clear photo kisi local krishi expert ko dikhayein. Bina identification ke pesticide use na karein.";
-  }
-  return "Patte peele hone ke kai kaaran ho sakte hain, jaise nutrient deficiency, paani ka jama hona ya disease. Pehle check karein ki paani toh nahi ruk raha aur pīlāpan purane patton mein hai ya naye patton mein. Aapki fasal kaunsi hai aur kitne din ki hai? Is demo mein answer rule-based hai; Gemma integration backend setup ke baad chalegi.";
-}
+## 5. जल प्रबंधन (Water Management)
+- रोपाई के बाद पहले 10-12 दिनों तक खेत में 2-3 सेमी पानी बनाए रखें ताकि पौधे अच्छी तरह जड़ पकड़ सकें।
+- कल्ले फूटते समय और बाली निकलते समय खेत में पर्याप्त नमी होना अनिवार्य है।
+- **वैकल्पिक गीला-सूखा तरीका (Alternate Wetting and Drying - AWD)**: पानी भरने के बाद जब सतह से पानी गायब हो जाए (1-2 दिन बाद) तब पुनः सिंचाई करें। इससे मीथेन उत्सर्जन घटता है और पानी की बचत होती है।
+- कटाई से 10-12 दिन पहले खेत से पानी निकाल दें।
 
-form.addEventListener("submit", async event => {
-  event.preventDefault();
-  const question = input.value.trim();
-  if (!question) return;
-  showConversation();
-  addMessage("user", question);
-  input.value = "";
-  input.style.height = "auto";
-  const loading = addMessage("assistant", "Sawal samajh raha hoon...");
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question})
-    });
-    if (!response.ok) throw new Error("API unavailable");
-    const data = await response.json();
-    loading.remove();
-    addMessage("assistant", data.answer, data.source ? `Knowledge source: ${data.source}` : "AI-generated response. Important decisions ko local agricultural expert se verify karein.");
-  } catch (error) {
-    loading.remove();
-    addMessage("assistant", demoAnswer(question), "Demo response — live Gemma backend abhi connected nahi hai. Farming decisions ko trusted local guidance se verify karein.");
-  }
-});
+## 6. खरपतवार नियंत्रण (Weed Management)
+- रोपाई के 2-3 दिन के भीतर जब खेत में 2-3 सेमी पानी हो:
+  - प्रेटिलाक्लोर 50% EC (Pretilachlor) @ 500 मिली प्रति एकड़, या ब्यूटॉक्लोर 50% EC @ 1-1.25 लीटर प्रति एकड़ बालू में मिलाकर छिड़कें।
+- रोपाई के 15-20 दिन बाद (खड़ी फसल में चौड़ी व सँकरी पत्ती):
+  - बिस्पायरीबैक सोडियम 10% SC (Nominee Gold) @ 80-100 मिली प्रति एकड़ 150 लीटर पानी में छिड़कें।
+
+## 7. प्रमुख कीट एवं रोग (Pests & Diseases)
+- **खैरा रोग (Khaira Disease - Zinc Deficiency)**:
+  - लक्षण: पत्तियों पर कत्थई/भूरे धब्बे, पौधे की बढ़वार रुकना।
+  - उपचार: 1 किग्रा जिंक सल्फेट (21%) + 500 ग्राम बुझा हुआ चूना 200 लीटर पानी में मिलाकर प्रति एकड़ छिड़कें।
+- **ब्लास्ट / झोंका रोग (Blast Disease)**:
+  - लक्षण: पत्तियों पर आँख के आकार के धब्बे (किनारे भूरे, बीच में राख जैसा)।
+  - उपचार: ट्राइसाइक्लाज़ोल 75% WP (Tricyclazole / Beam) @ 120 ग्राम प्रति एकड़ 200 लीटर पानी में।
+- **शीथ ब्लाइट (Sheath Blight)**:
+  - लक्षण: तने के निचले हिस्से पर सर्पिलाकार भूरे धब्बे।
+  - उपचार: हेक्साकोनाज़ोल 5% SC @ 400 मिली या वेलीडामैसिन 3% L @ 400 मिली प्रति एकड़।
+- **तना छेदक (Stem Borer)**:
+  - लक्षण: शुरू में "डेड हार्ट" (बीच की पत्ती सूखना) और बाद में "सफेद बाली" (White earhead)।
+  - उपचार: कारटैप हाइड्रोक्लोराइड 4% G (Cartap) @ 7.5 किग्रा प्रति एकड़ रोपाई के 25-30 दिन बाद, अथवा क्लोरेंट्रानिलीप्रोल (Coragen) @ 60 मिली प्रति एकड़।
+- **भूरा फुदका / माहू (Brown Plant Hopper - BPH)**:
+  - लक्षण: पौधों के आधार पर रस चूसते हैं, फसल गोलाकार जलने जैसी दिखती है (Hopper Burn)।
+  - उपचार: पाइमेट्रोजिन 50% WG (Chess) @ 120 ग्राम या डाइनोटिफ्यूरान 20% SG @ 80 ग्राम प्रति एकड़ तने की जड़ पर पानी पहुंचाते हुए छिड़कें।
+
+> **महत्वपूर्ण चेतावनी**: कीटनाशकों का इस्तेमाल हमेशा उत्पाद लेबल पर लिखे निर्देशों के अनुसार और स्थानीय कृषि विज्ञान केंद्र (KVK) की सलाह पर ही करें।

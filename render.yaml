@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: gohar
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: GOHAR_MODEL
+        value: gemma4:e2b
+      - key: GOHAR_OLLAMA_TIMEOUT
+        value: "300"
+      - key: OLLAMA_URL
+        sync: false
+      - key: OLLAMA_API_KEY
+        sync: false
+      - key: GOHAR_ALLOWED_ORIGINS
+        sync: false

@@ -33,7 +33,7 @@ let recognition = null;
 let activeTarget = null;
 let activeMicButton = null;
 let isListening = false;
-let shouldSubmitVoice = true;
+let voiceNoSpeech = false;
 let voiceDraft = "";
 const HISTORY_KEY = "gohar-chat-history";
 const HISTORY_LIMIT = 12;
@@ -74,6 +74,7 @@ const copy = {
     connection: "गोहर सर्वर से जुड़ नहीं पा रहा। Backend चालू करके फिर कोशिश करें।",
     routeNotFound: "Backend में /chat नहीं मिला ({url})। Frontend की API URL को FastAPI backend पर सेट करें।",
     retry: "सवाल भेजा नहीं जा सका। कृपया फिर कोशिश करें।",
+    transcriptReady: "आवाज़ का पाठ नीचे है—जाँचकर भेजें।", noSpeech: "आवाज़ सुनाई नहीं दी। माइक दबाकर फिर बोलें।", voiceUnavailable: "आवाज़ से लिखने के लिए यह पेज Chrome या Edge में खोलें.",
     spoken: "जवाब सुनें", source: "स्रोत", fallback: "AI मॉडल अभी उपलब्ध नहीं है", ai: "गोहर AI",
     newChat: "नई बातचीत", history: "हाल की बातचीत", emptyHistory: "आपकी बातचीत यहाँ दिखेगी।", openHistory: "बातचीत का इतिहास खोलें",
     season: "मौसम / सीज़न", seasonPlaceholder: "सीज़न चुनें (वैकल्पिक)",
@@ -102,6 +103,7 @@ const copy = {
     connection: "Can’t connect to the Gohar server. Start the backend and try again.",
     routeNotFound: "The backend has no /chat route at {url}. Set the frontend API URL to your FastAPI backend.",
     retry: "Could not send your question. Please try again.",
+    transcriptReady: "Your speech is in the box—review it, then send.", noSpeech: "No speech detected. Tap the microphone and try again.", voiceUnavailable: "Voice typing is unavailable here. Open this page in Chrome or Edge.",
     spoken: "Listen to answer", source: "Source", fallback: "AI model unavailable", ai: "Gohar AI",
     newChat: "New conversation", history: "RECENT CHATS", emptyHistory: "Your conversations will appear here.", openHistory: "Open chat history",
     season: "Growing season", seasonPlaceholder: "Choose season (optional)",
@@ -298,9 +300,12 @@ function applyLanguage() {
   document.querySelector("#question").placeholder = text.placeholder;
   input.setAttribute("aria-label", text.placeholder);
   sendButton.setAttribute("aria-label", text.sendLabel);
-  voiceButton.setAttribute("aria-label", text.micLabel);
-  voiceButton.title = text.micLabel;
-  hint.textContent = isListening ? text.listening : questionHint();
+  const voiceSupported = Boolean(Recognition);
+  voiceButton.disabled = !voiceSupported;
+  voiceButton.setAttribute("aria-label", voiceSupported ? text.micLabel : text.voiceUnavailable);
+  voiceButton.title = voiceSupported ? text.micLabel : text.voiceUnavailable;
+  hint.classList.toggle("voice-unavailable", !voiceSupported);
+  hint.textContent = !voiceSupported ? text.voiceUnavailable : isListening ? text.listening : questionHint();
   document.querySelector("#seasonLabel").textContent = text.season;
   document.querySelector("#farmSeason").options[0].textContent = text.seasonPlaceholder;
   farmFields.forEach((field) => {
@@ -308,8 +313,9 @@ function applyLanguage() {
     const control = document.querySelector(`#${field.id}`);
     control.placeholder = text[field.placeholder];
     const mic = document.querySelector(`[data-field="${field.id}"]`);
-    mic.title = text[field.voiceLabel];
-    mic.setAttribute("aria-label", text[field.voiceLabel]);
+    mic.disabled = !voiceSupported;
+    mic.title = voiceSupported ? text[field.voiceLabel] : text.voiceUnavailable;
+    mic.setAttribute("aria-label", voiceSupported ? text[field.voiceLabel] : text.voiceUnavailable);
   });
   document.querySelectorAll(".topic").forEach((button, index) => {
     const [title, subtitle] = text.topics[index];
@@ -588,14 +594,14 @@ function addMessage(text, role, meta = "", saveToHistory = true, messageLanguage
 function setBusy(busy) {
   sendButton.disabled = busy;
   input.disabled = busy;
-  voiceButton.disabled = busy;
-  document.querySelectorAll(".field-voice").forEach((button) => { button.disabled = busy; });
+  voiceButton.disabled = busy || !Recognition;
+  document.querySelectorAll(".field-voice").forEach((button) => { button.disabled = busy || !Recognition; });
   document.querySelector("#newChat").disabled = busy;
   document.querySelector("#historyToggle").disabled = busy;
   document.querySelector("#languageSelect").disabled = busy;
   document.querySelectorAll(".history-item").forEach((button) => { button.disabled = busy; });
   sendButton.textContent = busy ? "…" : "↑";
-  hint.textContent = busy ? words().thinking : isListening ? words().listening : questionHint();
+  hint.textContent = busy ? words().thinking : !Recognition ? words().voiceUnavailable : isListening ? words().listening : questionHint();
 }
 
 function farmerDetails() {
@@ -660,7 +666,6 @@ async function sendQuestion(question) {
 }
 
 function stopListening() {
-  shouldSubmitVoice = false;
   if (recognition && isListening) recognition.stop();
 }
 
@@ -676,8 +681,8 @@ function startListening(target = input, button = voiceButton) {
   }
   activeTarget = target;
   activeMicButton = button;
-  shouldSubmitVoice = target === input;
   voiceDraft = "";
+  voiceNoSpeech = false;
   target.value = "";
   recognition = new Recognition();
   recognition.lang = LANGUAGES[language].voice;
@@ -705,7 +710,11 @@ function startListening(target = input, button = voiceButton) {
     }
   };
   recognition.onerror = (event) => {
-    if (event.error !== "aborted" && event.error !== "no-speech") {
+    if (event.error === "no-speech") {
+      voiceNoSpeech = true;
+      return;
+    }
+    if (event.error !== "aborted") {
       showConversation();
       const message = event.error === "language-not-supported" ? words().voiceLanguageError
         : event.error === "not-allowed" || event.error === "service-not-allowed" ? words().micDenied
@@ -717,12 +726,11 @@ function startListening(target = input, button = voiceButton) {
     isListening = false;
     button.classList.remove("listening");
     button.textContent = button === voiceButton ? words().mic : "🎙";
-    if (target === input) hint.textContent = questionHint();
     const spokenText = target.value.trim();
-    const submitAfterVoice = shouldSubmitVoice && target === input;
     activeTarget = null;
     activeMicButton = null;
-    if (submitAfterVoice && spokenText.length >= 2) sendQuestion(spokenText);
+    if (target === input) hint.textContent = spokenText ? words().transcriptReady : voiceNoSpeech ? words().noSpeech : questionHint();
+    voiceNoSpeech = false;
   };
   try {
     recognition.start();

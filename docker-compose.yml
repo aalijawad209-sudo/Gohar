@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  gohar:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - OLLAMA_URL=http://host.docker.internal:11434/api/generate
+      - GOHAR_MODEL=gemma4:e2b
+      - GOHAR_OLLAMA_TIMEOUT=300
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

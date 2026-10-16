@@ -1,4 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
-:root{--forest:#174c35;--leaf:#216445;--paper:#fbfcf8;--ink:#17271e;--muted:#77847b;--line:#e6ebe4}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}button,textarea{font:inherit}button{cursor:pointer}.layout{min-height:100vh;display:grid;grid-template-columns:250px minmax(0,1fr)}.sidebar{background:#f1f5ef;border-right:1px solid var(--line);padding:26px 18px;display:flex;flex-direction:column;min-height:100vh}.brand{display:flex;gap:10px;align-items:center;padding:0 5px 35px}.brand-icon{width:43px;height:43px;border-radius:14px;background:var(--forest);display:grid;place-items:center;font-size:23px}.brand strong{font-family:Manrope,sans-serif;font-size:20px}.brand strong span{font-size:9px;letter-spacing:1.4px;color:var(--leaf)}.brand small{display:block;font-size:11px;color:var(--muted);margin-top:3px}.label{font-size:9px;letter-spacing:1.5px;color:#879389;font-weight:700}.new-chat{background:#fff;border:1px solid #dfe8de;border-radius:11px;padding:13px;text-align:left;color:var(--forest);font-weight:600;font-size:12px}.side-note{margin-top:26px;background:#e4efe4;border-radius:15px;padding:17px}.side-note div{font-size:22px}.side-note b{display:block;font-size:13px;margin:10px 0 5px}.side-note p,.side-bottom p{font-size:11px;color:#6f7f72;line-height:1.6;margin:0}.side-bottom{margin-top:auto;padding:20px 6px 0;font-size:11px;font-weight:700;color:var(--forest)}.dot{width:7px;height:7px;background:#43a76b;border-radius:50%;display:inline-block;margin-right:6px}.side-bottom p{margin-top:8px;font-weight:400}main{min-height:100vh;position:relative;display:flex;flex-direction:column}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;justify-content:flex-end;align-items:center;padding:0 5%}.status{font-size:11px;color:#68776d;background:#f0f4ee;border:1px solid #e3e9e0;border-radius:30px;padding:8px 11px}.welcome{width:min(760px,88%);margin:58px auto 175px}.eyebrow{font-size:9px;font-weight:700;letter-spacing:1.5px;color:#64816b}.welcome h1{font-family:Manrope,sans-serif;font-size:clamp(35px,4vw,52px);letter-spacing:-2px;line-height:1.1;margin:22px 0 14px}.welcome h1 em{font-style:normal;color:var(--leaf)}.intro{font-size:14px;line-height:1.8;color:#738076;margin-bottom:30px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.topic{display:flex;align-items:center;gap:11px;padding:14px 12px;background:#fff;border:1px solid var(--line);border-radius:14px;text-align:left;transition:.18s}.topic:hover{border-color:#a9c7ae;transform:translateY(-2px)}.emoji{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;font-size:19px;flex-shrink:0}.wheat{background:#f9f0d9}.green{background:#e4f2e5}.blue{background:#e5eef8}.orange{background:#f9e9df}.topic b{display:block;font-size:12px;margin-bottom:5px}.topic small{display:block;font-size:10px;color:#879187}.arrow{margin-left:auto;color:#8ca08e}.composer-wrap{position:fixed;bottom:0;left:250px;right:0;padding:20px 5% 14px;background:linear-gradient(180deg,#fbfcf800,#fbfcf8 22%);display:flex;align-items:center;flex-direction:column}.composer{width:min(760px,100%);border:1px solid #dfe7dc;border-radius:16px;background:#fff;padding:14px 14px 10px;box-shadow:0 10px 32px #1c41210b}.composer textarea{width:100%;resize:none;min-height:32px;max-height:120px;border:0;outline:0;font-size:13px;color:var(--ink);background:transparent}.composer textarea::placeholder{color:#a2aca3}.composer-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:10px;color:#8b978c}.composer-foot button{width:33px;height:33px;border:0;border-radius:10px;background:var(--forest);color:white;font-size:22px}.disclaimer{font-size:9px;color:#9aa39b;text-align:center;margin:10px 0 0}.hidden{display:none!important}.conversation{width:min(760px,88%);margin:35px auto 210px;display:flex;flex-direction:column;gap:18px}.message{display:flex;gap:10px;align-items:flex-start}.message.user{justify-content:flex-end}.avatar{width:31px;height:31px;border-radius:10px;background:#e4efe4;display:grid;place-items:center;flex-shrink:0}.bubble{max-width:86%;border:1px solid var(--line);border-radius:4px 15px 15px 15px;padding:14px 16px;background:#fff;font-size:13px;line-height:1.75;white-space:pre-wrap}.user .bubble{background:var(--forest);color:#fff;border:0;border-radius:15px 4px 15px 15px;max-width:78%}.answer-title{font-weight:700;color:var(--forest);margin-bottom:6px}.source-note{font-size:10px;color:#7a897b;border-top:1px solid var(--line);margin-top:11px;padding-top:9px}.mobile-brand{display:none}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.sidebar{display:none}.topbar{height:62px;justify-content:space-between;padding:0 5%}.mobile-brand{display:block;font-size:17px;color:var(--forest)}.mobile-brand b{font-size:15px}.status{font-size:10px}.welcome{margin:43px auto 185px;width:90%}.welcome h1{font-size:37px}.intro{font-size:13px}.cards{grid-template-columns:1fr;gap:9px}.topic{padding:12px}.composer-wrap{left:0;padding:15px 4% 12px}.conversation{width:90%;margin-top:24px}.bubble{max-width:91%}.disclaimer{max-width:360px;line-height:1.5}}
+# गेहूँ की खेती (Wheat Cultivation Guide) — उत्तर प्रदेश एवं उत्तर भारत
+
+## 1. सामान्य परिचय (Overview)
+- **फसल**: गेहूँ (Triticum aestivum) — रबी सीज़न (Rabi Crop)
+- **उपयुक्त मिट्टी**: दोमट (Loam) या बलुई दोमट (Sandy Loam), उत्तम जल निकासी युक्त (pH 6.5–7.5)।
+- **बुवाई का उपयुक्त समय**: 
+  - समय पर बुवाई: 1 नवंबर से 25 नवंबर
+  - पछेती बुवाई: 25 नवंबर से 25 दिसंबर
+
+## 2. उन्नत किस्में (Improved Varieties)
+- **सिंचित एवं समय पर बुवाई**: PBW-343, PBW-502, HD-2967, HD-3086, DBW-187 (Karan Vandana), DBW-222, DBW-303 (Karan Narendra)।
+- **पछेती बुवाई**: PBW-373, HD-3118, Raj-3765, K-7903 (Halna)।
+- **असिंचित क्षेत्र**: K-8027, C-306, HDR-77।
+
+## 3. बीज दर एवं बीजोपचार (Seed Rate and Treatment)
+- **बीज दर**: 
+  - समय पर बुवाई: 100 किग्रा प्रति हेक्टेयर (40 किग्रा/एकड़)।
+  - पछेती बुवाई / मोटा दाना: 125 किग्रा प्रति हेक्टेयर (50 किग्रा/एकड़)।
+- **बीजोपचार (Seed Treatment)**:
+  - फफूँदनाशक: थीरम (Thiram) या कार्बेन्डाजिम (Carbendazim) 2 से 2.5 ग्राम प्रति किग्रा बीज, अथवा ट्राइकोडर्मा (Trichoderma viride) 5 से 10 ग्राम प्रति किग्रा।
+  - दीमक रोकथाम (Termites): क्लोरपायरीफॉस 20 EC (Chlorpyrifos) @ 4 मिली प्रति किग्रा बीज।
+  - जैव उर्वरक: एजोटोबैक्टर (Azotobacter) और पीएसबी (PSB) कल्चर 10-10 ग्राम प्रति किग्रा बीज।
+
+## 4. खाद एवं उर्वरक प्रबंधन (Nutrient Management)
+अनुशंसित एनपीके मात्रा (सामान्यतः 120:60:40 किग्रा/हेक्टेयर):
+- **बुवाई के समय (Basal Dose)**:
+  - फॉस्फोरस (P) एवं पोटाश (K) की पूरी मात्रा तथा नाइट्रोजन (N) की एक तिहाई (1/3) मात्रा बुवाई के समय कूंड़ में दें।
+  - प्रति एकड़ अनुमान: लगभग 1 बोरी डीएपी (DAP 50 किग्रा) + 25-30 किग्रा एमओपी (MOP) + 25-30 किग्रा यूरिया, अथवा 3 बोरी एसएसपी (SSP) + 1 बोरी यूरिया + पोटाश।
+  - जिंक (Zinc): बुवाई के समय 10 किग्रा जिंक सल्फेट (21%) या 5 किग्रा जिंक चिलेटेड प्रति एकड़ डालें।
+- **पहली टॉप ड्रेसिंग (Top Dressing - 20-25 दिन बाद / CRI अवस्था)**:
+  - पहली सिंचाई के बाद बतर आने पर 30-35 किग्रा यूरिया प्रति एकड़।
+- **दूसरी टॉप ड्रेसिंग (गाभा / कल्ले फूटने पर - 45-50 दिन बाद)**:
+  - 30-35 किग्रा यूरिया प्रति एकड़।
+- **स्प्रे (Micro-nutrients & NPK)**:
+  - यदि पत्तियाँ पीली पड़ रही हों: 1 किग्रा 19:19:19 NPK + 250 ग्राम जिंक चिलेटेड 150 लीटर पानी में घोलकर प्रति एकड़ छिड़कें।
+
+## 5. सिंचाई प्रबंधन (Critical Irrigation Stages)
+गेहूँ में 4 से 6 सिंचाइयाँ अवस्था अनुसार दी जाती हैं:
+1. **ताज जड़ निकलना (CRI - Crown Root Initiation)**: बुवाई के 20-25 दिन बाद (अति आवश्यक सिंचाई)।
+2. **कल्ले फूटना (Tillering Stage)**: 40-45 दिन बाद।
+3. **गाभा अवस्था / तना बढ़ना (Jointing/Booting Stage)**: 60-65 दिन बाद।
+4. **फूल आने पर (Flowering Stage)**: 80-85 दिन बाद।
+5. **दुग्ध अवस्था (Milking Stage)**: 100-105 दिन बाद।
+6. **दाना भरते समय (Dough Stage)**: 115-120 दिन बाद (तेज हवा में सिंचाई से बचें ताकि फसल न गिरे)।
+
+## 6. खरपतवार नियंत्रण (Weed Management)
+- **सँकरी पत्ती (मंडूसी / गुल्ली डंडा / फेलेरिस माइनर)**: क्लॉडिनाफॉप (Clodinafop propargyl 15% WP) @ 160 ग्राम प्रति एकड़ बुवाई के 30-35 दिन बाद 150 लीटर पानी में।
+- **चौड़ी पत्ती (बथुआ, सेंजी, कृष्णनील)**: 2,4-D अमाइन सॉल्ट 58% SL @ 400 मिली प्रति एकड़, अथवा मेटसल्फ्यूरॉन मिथाइल 20% WP @ 8 ग्राम प्रति एकड़।
+- **मिश्रित खरपतवार**: सल्फोसल्फ्यूरॉन + मेटसल्फ्यूरॉन (Total / Leader) @ 16 ग्राम प्रति एकड़।
+
+## 7. प्रमुख कीट एवं रोग प्रबंधन (Pest & Disease Control)
+- **पीला रतुआ (Yellow Rust)**:
+  - लक्षण: पत्तियों पर पीले रंग की धारियाँ और हल्दी जैसा पाउडर।
+  - नियंत्रण: प्रोपिकोनाज़ोल (Propiconazole 25% EC / Tilt) @ 200 मिली प्रति एकड़ 200 लीटर पानी में छिड़कें।
+- **करनाल बंट (Karnal Bunt)**:
+  - लक्षण: दानों में काले रंग का पाउडर और सड़ी मछली जैसी दुर्गंध।
+  - नियंत्रण: बाली निकलते समय प्रोपिकोनाज़ोल का छिड़काव।
+- **माहू / चेपा (Aphids)**:
+  - लक्षण: बालियों व कोमल पत्तियों से रस चूसते हैं।
+  - नियंत्रण: इमिडाक्लोप्रिड 17.8% SL (Imidacloprid) @ 50 मिली प्रति एकड़।
+- **दीमक (Termites)**:
+  - नियंत्रण: सिंचाई के साथ क्लोरपायरीफॉस 20 EC @ 1 से 1.5 लीटर प्रति एकड़ पानी के साथ बहाएं।
+
+> **महत्वपूर्ण चेतावनी**: कीटनाशकों का इस्तेमाल हमेशा उत्पाद लेबल पर लिखे निर्देशों के अनुसार और स्थानीय कृषि विज्ञान केंद्र (KVK) की सलाह पर ही करें।
